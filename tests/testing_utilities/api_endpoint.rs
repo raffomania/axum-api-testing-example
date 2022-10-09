@@ -6,7 +6,7 @@ use tower::ServiceExt;
 
 use serde::{de::DeserializeOwned, Serialize};
 
-pub struct ApiEndpoint<Response: DeserializeOwned> {
+pub struct ApiEndpoint<Response> {
     /// This is only owned to simplify the demo code.
     /// A real-world application would use a mutable borrow here to enable tests to send multiple requests to the same backend.
     pub router: axum::Router,
