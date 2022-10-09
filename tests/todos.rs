@@ -10,8 +10,9 @@ pub use testing_utilities::*;
 
 #[tokio::test]
 async fn create_todo_v1() {
-    let app = TestingApp::new();
     let todo_request = json!({"name": "Write tests"});
+
+    let app = TestingApp::new();
 
     let response = app
         .router
@@ -28,6 +29,7 @@ async fn create_todo_v1() {
 
     assert_eq!(response.status(), StatusCode::OK);
 
+    // Check that the response body matches the `Todo` struct
     let body = hyper::body::to_bytes(response.into_body()).await.unwrap();
     let todo: Todo = serde_json::from_slice(&body).unwrap();
     // Check that our input was used
@@ -38,10 +40,12 @@ async fn create_todo_v1() {
 
 #[tokio::test]
 async fn create_todo_v2() {
-    let app = TestingApp::new();
     let todo_request = json!({"name": "Write tests"});
 
-    let todo: Todo = app.todos().create(&todo_request).await;
+    let app = TestingApp::new();
+
+    let todo = app.todos().create(&todo_request).await;
+
     // Check that our input was used
     assert_eq!(todo.name, "Write tests");
     // Check that the default is what we expect

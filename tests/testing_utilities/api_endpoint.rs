@@ -14,7 +14,7 @@ pub struct ApiEndpoint<Response: DeserializeOwned> {
     pub response_type: PhantomData<Response>,
 }
 
-impl<'app, Response: DeserializeOwned> ApiEndpoint<Response> {
+impl<Response: DeserializeOwned> ApiEndpoint<Response> {
     pub fn new(router: axum::Router, uri: String) -> ApiEndpoint<Response> {
         ApiEndpoint {
             router,
