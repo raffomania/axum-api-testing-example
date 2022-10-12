@@ -19,7 +19,7 @@ pub struct Dog {
 pub fn app() -> Router {
     Router::new().route(
         "/v1/dogs",
-        post(|payload: Json<NewDog>| async move {
+        post(|payload: Json<NewDog>| async {
             Json(Dog {
                 id: Uuid::new_v4(),
                 name: payload.0.name,
