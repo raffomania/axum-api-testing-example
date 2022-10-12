@@ -14,18 +14,14 @@ async fn create_dog_v1() {
 
     let app = TestingApp::new();
 
-    let response = app
-        .router
-        .oneshot(
-            Request::builder()
-                .method(http::Method::POST)
-                .uri("/v1/dogs")
-                .header(http::header::CONTENT_TYPE, mime::APPLICATION_JSON.as_ref())
-                .body(Body::from(serde_json::to_vec(&dog_request).unwrap()))
-                .unwrap(),
-        )
-        .await
+    let request = Request::builder()
+        .method(http::Method::POST)
+        .uri("/v1/dogs")
+        .header(http::header::CONTENT_TYPE, mime::APPLICATION_JSON.as_ref())
+        .body(Body::from(serde_json::to_vec(&dog_request).unwrap()))
         .unwrap();
+
+    let response = app.router.oneshot(request).await.unwrap();
 
     assert_eq!(response.status(), StatusCode::OK);
 

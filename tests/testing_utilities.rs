@@ -46,19 +46,19 @@ impl<Response: DeserializeOwned> RequestBuilder<Response> {
     }
 
     pub async fn create<Input: Serialize>(mut self, input: &Input) -> Response {
+        let request = Request::builder()
+            .method(http::Method::POST)
+            .uri(&self.base_url)
+            .header(http::header::CONTENT_TYPE, mime::APPLICATION_JSON.as_ref())
+            .body(Body::from(serde_json::to_vec(&input).unwrap()))
+            .unwrap();
+
         let response = self
             .router
             .ready()
             .await
             .unwrap()
-            .call(
-                Request::builder()
-                    .method(http::Method::POST)
-                    .uri(&self.base_url)
-                    .header(http::header::CONTENT_TYPE, mime::APPLICATION_JSON.as_ref())
-                    .body(Body::from(serde_json::to_vec(&input).unwrap()))
-                    .unwrap(),
-            )
+            .call(request)
             .await
             .unwrap();
 
