@@ -1,6 +1,6 @@
 use axum::http::{self, Request, StatusCode};
-use end_to_end_testing_rust_demo::types::Todo;
 use hyper::Body;
+use rust_end_to_end_testing_example::types::Dog;
 use serde_json::json;
 use tower::ServiceExt;
 
@@ -9,8 +9,8 @@ mod testing_utilities;
 pub use testing_utilities::*;
 
 #[tokio::test]
-async fn create_todo_v1() {
-    let todo_request = json!({"name": "Write tests"});
+async fn create_dog_v1() {
+    let dog_request = json!({"name": "Write tests"});
 
     let app = TestingApp::new();
 
@@ -19,9 +19,9 @@ async fn create_todo_v1() {
         .oneshot(
             Request::builder()
                 .method(http::Method::POST)
-                .uri("/v1/todos")
+                .uri("/v1/dogs")
                 .header(http::header::CONTENT_TYPE, mime::APPLICATION_JSON.as_ref())
-                .body(Body::from(serde_json::to_vec(&todo_request).unwrap()))
+                .body(Body::from(serde_json::to_vec(&dog_request).unwrap()))
                 .unwrap(),
         )
         .await
@@ -29,25 +29,25 @@ async fn create_todo_v1() {
 
     assert_eq!(response.status(), StatusCode::OK);
 
-    // Check that the response body matches the `Todo` struct
+    // Check that the response body matches the `Dog` struct
     let body = hyper::body::to_bytes(response.into_body()).await.unwrap();
-    let todo: Todo = serde_json::from_slice(&body).unwrap();
+    let dog: Dog = serde_json::from_slice(&body).unwrap();
     // Check that our input was used
-    assert_eq!(todo.name, "Write tests");
+    assert_eq!(dog.name, "Write tests");
     // Check that the default is what we expect
-    assert_eq!(todo.completed, false);
+    assert_eq!(dog.completed, false);
 }
 
 #[tokio::test]
-async fn create_todo_v2() {
-    let todo_request = json!({"name": "Write tests"});
+async fn create_dog_v2() {
+    let dog_request = json!({"name": "Write tests"});
 
     let app = TestingApp::new();
 
-    let todo = app.todos().create(&todo_request).await;
+    let dog = app.dogs().create(&dog_request).await;
 
     // Check that our input was used
-    assert_eq!(todo.name, "Write tests");
+    assert_eq!(dog.name, "Write tests");
     // Check that the default is what we expect
-    assert_eq!(todo.completed, false);
+    assert_eq!(dog.completed, false);
 }

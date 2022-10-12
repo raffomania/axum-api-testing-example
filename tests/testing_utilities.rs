@@ -5,7 +5,7 @@ use std::marker::PhantomData;
 use tower::Service;
 use tower::ServiceExt;
 
-use end_to_end_testing_rust_demo::{app, types::Todo};
+use rust_end_to_end_testing_example::{app, types::Dog};
 
 pub struct TestingApp {
     pub router: axum::Router,
@@ -16,10 +16,10 @@ impl TestingApp {
         TestingApp { router: app() }
     }
 
-    pub fn todos(self) -> TestRequest<Todo> {
+    pub fn dogs(self) -> TestRequest<Dog> {
         TestRequest {
             router: self.router,
-            base_url: "/v1/todos".to_string(),
+            base_url: "/v1/dogs".to_string(),
             expected_status: StatusCode::OK,
             response_type: PhantomData,
         }
