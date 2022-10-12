@@ -8,11 +8,13 @@ mod testing_utilities;
 
 pub use testing_utilities::*;
 
+// This is an example of a typical test as seen in the official axum examples.
+// See the test after this one for a shorter, more intuitive example using our own request builder.
 #[tokio::test]
 async fn create_dog_v1() {
-    let dog_request = json!({"name": "Write tests"});
-
     let app = TestingApp::new();
+
+    let dog_request = json!({"name": "Write tests"});
 
     let request = Request::builder()
         .method(http::Method::POST)
@@ -34,11 +36,12 @@ async fn create_dog_v1() {
     assert_eq!(dog.completed, false);
 }
 
+// Using our own request builder via `app.dogs()`, we can simplify the above test a lot!
 #[tokio::test]
 async fn create_dog_v2() {
-    let dog_request = json!({"name": "Write tests"});
-
     let app = TestingApp::new();
+
+    let dog_request = json!({"name": "Write tests"});
 
     let dog = app.dogs().create(&dog_request).await;
 
