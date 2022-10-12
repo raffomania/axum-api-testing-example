@@ -16,8 +16,8 @@ impl TestingApp {
         TestingApp { router: app() }
     }
 
-    pub fn dogs(self) -> TestRequest<Dog> {
-        TestRequest {
+    pub fn dogs(self) -> RequestBuilder<Dog> {
+        RequestBuilder {
             router: self.router,
             base_url: "/v1/dogs".to_string(),
             expected_status: StatusCode::OK,
@@ -26,7 +26,7 @@ impl TestingApp {
     }
 }
 
-pub struct TestRequest<Response> {
+pub struct RequestBuilder<Response> {
     /// This is only owned to simplify the demo code.
     /// A real-world application would use a mutable borrow here to enable tests to send multiple requests to the same backend.
     pub router: axum::Router,
@@ -35,9 +35,9 @@ pub struct TestRequest<Response> {
     pub response_type: PhantomData<Response>,
 }
 
-impl<Response: DeserializeOwned> TestRequest<Response> {
-    pub fn new(router: axum::Router, uri: String) -> TestRequest<Response> {
-        TestRequest {
+impl<Response: DeserializeOwned> RequestBuilder<Response> {
+    pub fn new(router: axum::Router, uri: String) -> RequestBuilder<Response> {
+        RequestBuilder {
             router,
             base_url: uri,
             response_type: PhantomData,
