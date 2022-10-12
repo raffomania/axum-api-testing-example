@@ -2,8 +2,7 @@ use axum::http::{self, Request, StatusCode};
 use hyper::Body;
 use serde::{de::DeserializeOwned, Serialize};
 use std::marker::PhantomData;
-use tower::Service;
-use tower::ServiceExt;
+use tower::{Service, ServiceExt};
 
 use rust_end_to_end_testing_example::{app, Dog};
 
