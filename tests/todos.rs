@@ -1,6 +1,6 @@
 use axum::http::{self, Request, StatusCode};
 use hyper::Body;
-use rust_end_to_end_testing_example::types::Dog;
+use rust_end_to_end_testing_example::Dog;
 use serde_json::json;
 use tower::ServiceExt;
 

@@ -5,7 +5,7 @@ use std::marker::PhantomData;
 use tower::Service;
 use tower::ServiceExt;
 
-use rust_end_to_end_testing_example::{app, types::Dog};
+use rust_end_to_end_testing_example::{app, Dog};
 
 pub struct TestingApp {
     pub router: axum::Router,
