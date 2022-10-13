@@ -1,0 +1,4 @@
+# Format comments
+comment_width = 100
+wrap_comments = true
+normalize_comments = true

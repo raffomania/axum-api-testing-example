@@ -1,15 +1,16 @@
 use axum::http::{self, Request, StatusCode};
 use hyper::Body;
-use rust_end_to_end_testing_example::Dog;
 use serde_json::json;
 use tower::ServiceExt;
+
+use rust_end_to_end_testing_example::Dog;
 
 mod testing_utilities;
 
 pub use testing_utilities::*;
 
-// This is an example of a typical test as seen in the official axum examples.
-// See the test after this one for a shorter, more intuitive example using our own request builder.
+/// This is an example of a typical test as seen in the official axum examples.
+/// See the test after this one for a shorter, more intuitive example using our own request builder.
 #[tokio::test]
 async fn create_dog_v1() {
     let app = TestingApp::new();
@@ -36,7 +37,7 @@ async fn create_dog_v1() {
     assert_eq!(dog.completed, false);
 }
 
-// Using our own request builder via `app.dogs()`, we can simplify the above test a lot!
+/// Using our own request builder via `app.dogs()`, we can simplify the above test a lot!
 #[tokio::test]
 async fn create_dog_v2() {
     let app = TestingApp::new();
