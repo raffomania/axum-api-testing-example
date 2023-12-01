@@ -1,5 +1,8 @@
-use axum::http::{self, Request, StatusCode};
-use hyper::Body;
+use axum::{
+    body::Body,
+    http::{self, Request, StatusCode},
+};
+use http_body_util::BodyExt;
 use serde_json::json;
 use tower::ServiceExt;
 
@@ -29,7 +32,7 @@ async fn create_dog_v1() {
     assert_eq!(response.status(), StatusCode::OK);
 
     // Check that the response body matches the `Dog` struct
-    let body = hyper::body::to_bytes(response.into_body()).await.unwrap();
+    let body = response.into_body().collect().await.unwrap().to_bytes();
     let dog: Dog = serde_json::from_slice(&body).unwrap();
     // Check that our input was used
     assert_eq!(dog.name, "Write tests");

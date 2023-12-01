@@ -1,8 +1,8 @@
 use axum::{
-    body::Bytes,
+    body::{Body, Bytes},
     http::{self, Request, StatusCode},
 };
-use hyper::Body;
+use http_body_util::BodyExt;
 use serde::{de::DeserializeOwned, Serialize};
 use std::marker::PhantomData;
 use tower::{Service, ServiceExt};
@@ -67,9 +67,7 @@ impl<Response> RequestBuilder<Response> {
             .body(Body::from(serde_json::to_vec(&input).unwrap()))
             .unwrap();
 
-        let response = self
-            .router
-            .ready()
+        let response = ServiceExt::<Request<Body>>::ready(&mut self.router)
             .await
             .unwrap()
             .call(request)
@@ -78,7 +76,7 @@ impl<Response> RequestBuilder<Response> {
 
         assert_eq!(response.status(), self.expected_status);
 
-        let body = hyper::body::to_bytes(response.into_body()).await.unwrap();
+        let body = response.into_body().collect().await.unwrap().to_bytes();
 
         FromBody::from_body(body)
     }
