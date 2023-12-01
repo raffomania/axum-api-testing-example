@@ -1,8 +1,11 @@
 # Testing Your Rust Web API
 
-A nice way to test your Rust backend that scales nicely for larger codebases with lots of test cases.
+A boilerplate setup with best practices for testing your axum backend that scales nicely for larger codebases with lots of test cases. Features:
 
-This is the example code for ["End-to-end Testing Your Rust Backend"](https://www.rafa.ee/talks/end-to-end-testing-your-rust-backend/), a talk held at EuroRust 2022.
+- Convenient **custom HTTP client** making tests easier to write
+- **Github Action** that runs tests, verifies formatting etc.
+
+This repo is also the example code for ["End-to-end Testing Your Rust Backend"](https://www.rafa.ee/talks/end-to-end-testing-your-rust-backend/), a talk held at EuroRust 2022. If you want to know more about the techniques used here, check out the talk!
 
 Here's a short guide to reading the code:
 
