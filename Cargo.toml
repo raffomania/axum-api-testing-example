@@ -8,7 +8,7 @@ edition = "2021"
 [dependencies]
 axum = "0.5.16"
 hyper = { version = "0.14.20", features = ["full"] }
-mime = "0.3.16"
+mime = "0.3.17"
 rstest = "0.15.0"
 rstest_reuse = "0.4.0"
 serde = { version = "1.0.145", features = ["derive"] }
