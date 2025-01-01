@@ -8,12 +8,12 @@ edition = "2021"
 [dependencies]
 axum = "0.7.9"
 http-body-util = "0.1.2"
-hyper = { version = "1.5.1", features = ["full"] }
+hyper = { version = "1.5.2", features = ["full"] }
 mime = "0.3.16"
-rstest = "0.23.0"
+rstest = "0.24.0"
 rstest_reuse = "0.7.0"
-serde = { version = "1.0.215", features = ["derive"] }
-serde_json = "1.0.133"
-tokio = { version = "1.41.1", features = ["full"] }
-tower = "0.5.1"
+serde = { version = "1.0.217", features = ["derive"] }
+serde_json = "1.0.134"
+tokio = { version = "1.42.0", features = ["full"] }
+tower = "0.5.2"
 uuid = { version = "1.11.0", features = ["v4", "serde"] }
