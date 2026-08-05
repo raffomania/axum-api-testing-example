@@ -1,6 +1,6 @@
-# Testing Your Rust Web API
+# Axum API Test Boilerplate
 
-A boilerplate setup with best practices for testing your axum backend that scales nicely for larger codebases with lots of test cases. Features:
+Best practices for testing your axum backend that scale nicely for larger codebases with lots of test cases. Features:
 
 - Convenient **custom HTTP client** making tests easier to write
 - **Github Action** that runs tests, verifies formatting etc.
